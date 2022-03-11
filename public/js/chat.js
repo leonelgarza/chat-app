@@ -14,6 +14,12 @@ const sidebarTemplete = document.querySelector('#sidebar-template').innerHTML
 //options
 const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
 
+var messageSound = new Audio();
+messageSound.src = '../sounds/message.wav';
+function playmessageSound(num){
+         messageSound.play();
+}
+
 const autoscroll = () => {
     //new messange
     const $newMessage = $message.lastElementChild
@@ -44,6 +50,7 @@ socket.on('message', (message) => {
          message: message.text,
          createdAt: moment(message.createdAt).format('h:m a')
      })
+     playmessageSound()
      $message.insertAdjacentHTML('beforeend', html)
      autoscroll()
  })
